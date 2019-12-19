@@ -13,26 +13,23 @@ option(WPE_MESA_DRM_TEGRA_SUPPORT "Whether to enable support for the Tegra-speci
 find_package(EGL REQUIRED)
 find_package(GLIB 2.40.0 REQUIRED COMPONENTS gio gio-unix gobject gthread gmodule)
 find_package(LibDRM REQUIRED)
-find_package(Libxkbcommon 0.4.0 REQUIRED)
 find_package(Wayland 1.10.0 REQUIRED)
 find_package(WaylandCursor REQUIRED)
 add_definitions(-DWPE_BACKEND_DRM=1)
 add_definitions(-DWPE_BACKEND_WAYLAND=1)
 add_definitions(${EGL_DEFINITIONS})
 
-pkg_check_modules(WPE wpe-0.2 REQUIRED)
+find_package(WPE REQUIRED)
 
 set(WPE_MESA_INCLUDE_DIRECTORIES
     "src/drm"
     "src/external"
-    "src/libxkbcommon"
     "src/util"
     "src/wayland"
     "src/wayland/protocols"
     ${EGL_INCLUDE_DIRS}
     ${GIO_UNIX_INCLUDE_DIRS}
     ${GLIB_INCLUDE_DIRS}
-    ${LIBXKBCOMMON_INCLUDE_DIRS}
     ${WAYLAND_INCLUDE_DIRS}
     ${WAYLAND_CURSOR_INCLUDE_DIRS}
     ${WPE_INCLUDE_DIRS}
@@ -41,15 +38,12 @@ set(WPE_MESA_LIBRARIES
     ${EGL_LIBRARIES}
     ${GIO_UNIX_LIBRARIES}
     ${GLIB_LIBRARIES}
-    ${LIBXKBCOMMON_LIBRARIES}
     ${WAYLAND_LIBRARIES}
     ${WAYLAND_CURSOR_LIBRARIES}
     ${WPE_LIBRARIES}
 )
 set(WPE_MESA_SOURCES
     src/mesa.cpp
-
-    src/libxkbcommon/input-libxkbcommon.cpp
 
     src/util/ipc.cpp
 
